@@ -1,0 +1,402 @@
+/* ==========================================
+   1. المحرك والأساسيات وتوحيد المتغيرات
+   ========================================== */
+:root {
+    /* خلفية الصفحة الرئيسية: تدرج ساحر من السماوي الهادئ للأخضر النعناعي */
+    --bg-gradient: linear-gradient(135deg, #e0f2fe 0%, #e0f2fe 40%, #d1fae5 100%);
+    
+    /* خلفية الكروت والجداول: أخضر سماوي ناعم جداً بديل الأبيض */
+    --card-bg: #e2f5f4; 
+    
+    /* النصوص والحدود */
+    --text-main: #064e3b;       /* أخضر زيتي غامق مريح للعين */
+    --text-muted: #0f766e;      /* أزرق تركواز غامق */
+    --primary: #0284c7;         /* أزرق سماوي مشرق */
+    --primary-hover: #0369a1;
+    --accent: #10b981;          /* أخضر زمردي جذاب للأزرار */
+    --border-color: #a7f3d0;    /* حد هادئ بلون النعناع */
+    
+    /* ألوان النطاقات الجغرافية (أ، ب، ج) ثابتة لعدم تشتيت الطالب */
+    --zone-a: #bbf7d0;
+    --zone-b: #bae6fd;
+    --zone-c: #fecdd3;
+    --zone-a-dark: #14532d; 
+    --zone-b-dark: #1e3a8a;
+    --zone-c-dark: #881337;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+    color: var(--text-muted);
+    line-height: 1.6;
+    direction: rtl;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+/* إلغاء اللون الأبيض نهائياً من كافة الكروت والجداول */
+.card, .archive-container, table {
+    background-color: var(--card-bg) !important;
+    color: var(--text-muted) !important;
+}
+
+h1, h2, h3, h4, .college-name {
+    color: var(--text-main) !important;
+}
+
+/* عناصر الإدخال بخلفية سماوية ناعمة */
+input, select {
+    background-color: #f0fdf4 !important;
+    color: var(--text-main) !important;
+    border: 2px solid var(--border-color) !important;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+/* ==========================================
+   2. الهيدر (Header)
+   ========================================== */
+header {
+    text-align: center;
+    background: linear-gradient(180deg, #cff4fc 0%, #d1fae5 100%);
+    padding: 25px 15px;
+    border-radius: 0 0 24px 24px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 25px -5px rgba(6, 78, 59, 0.08);
+}
+
+.header-image {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    margin-bottom: 15px;
+}
+
+header h1 {
+    color: #0369a1 !important;
+    font-size: clamp(1.5rem, 6vw, 2.5rem);
+    text-shadow: 0 1px 2px rgba(255,255,255,0.5);
+}
+
+/* ==========================================
+   3. العناصر التفاعلية والمدخلات
+   ========================================== */
+.form-control {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.hidden { display: none; }
+
+.main-label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 10px;
+}
+
+.sort-options-container {
+    margin-bottom: 25px;
+    background: #ccfbf1;
+    padding: 18px;
+    border-radius: 12px;
+    border: 1px solid #99f6e4;
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-right: 5px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-main);
+    user-select: none;
+}
+
+.radio-label input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border: 2px solid #0d9488;
+    border-radius: 50%;
+    margin-left: 12px;
+    outline: none;
+    background-color: #f0fdf4;
+    cursor: pointer;
+    display: grid;
+    place-content: center;
+    transition: all 0.2s ease;
+}
+
+.radio-label input[type="radio"]:checked {
+    border-color: var(--accent);
+    background-color: #ecfdf5;
+}
+
+.radio-label input[type="radio"]::before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: 0.15s transform ease-in-out;
+    background-color: var(--accent);
+}
+
+.radio-label input[type="radio"]:checked::before {
+    transform: scale(1);
+}
+
+.custom-input {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.custom-input:focus {
+    outline: none;
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.2);
+}
+
+/* ==========================================
+   4. الأزرار والحركة والأنيميشن
+   ========================================== */
+#start-design button {
+    background: linear-gradient(135deg, #0284c7, #0d9488);
+    color: white;
+    font-size: 1.8rem !important;
+    font-weight: bold;
+    padding: 20px 50px !important;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(2, 132, 199, 0.35);
+    display: block;
+    margin: 20px auto;
+    animation: pulse-cyan 2s infinite;
+}
+
+@keyframes pulse-cyan {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(2, 132, 199, 0.7); }
+    70% { transform: scale(1.04); box-shadow: 0 0 0 15px rgba(2, 132, 199, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(2, 132, 199, 0); }
+}
+
+.btn-submit-wishes {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    width: 100%;
+    padding: 16px;
+    margin-top: 10px;
+    font-size: 1.1rem5;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    transition: all 0.2s ease;
+}
+
+.btn-submit-wishes:hover {
+    background: linear-gradient(135deg, #059669, #047857);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+}
+
+.pdf-btn {
+    background: linear-gradient(135deg, #0284c7, #0f766e) !important;
+    color: white !important;
+    padding: 18px 45px !important;
+    font-size: 1.2rem !important;
+    border-radius: 50px !important;
+    border: none !important;
+    box-shadow: 0 8px 20px rgba(2, 132, 199, 0.3) !important;
+    margin: 30px auto !important;
+    display: block !important;
+    cursor: pointer !important;
+    font-weight: bold;
+}
+
+button:active {
+    transform: scale(0.97);
+    transition: 0.1s;
+}
+
+/* ==========================================
+   5. الجداول والنتائج (الترتيب والنطاقات)
+   ========================================== */
+.results-table-container {
+    border-radius: 14px;
+    border: 2px solid #0284c7;
+    overflow-x: auto;
+    margin-top: 20px;
+    box-shadow: 0 8px 20px rgba(6, 78, 59, 0.05);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: linear-gradient(135deg, #0284c7, #0d9488);
+    color: white !important;
+    padding: 16px 12px;
+    text-align: right;
+    font-size: 1.05rem;
+}
+
+td {
+    padding: 14px 12px;
+    border-bottom: 1px solid #a7f3d0;
+    font-weight: 600;
+}
+
+/* تلوين الصفوف الجغرافية المريحة للعين */
+.zone-a { background-color: var(--zone-a) !important; color: var(--zone-a-dark) !important; }
+.zone-b { background-color: var(--zone-b) !important; color: var(--zone-b-dark) !important; }
+.zone-c { background-color: var(--zone-c) !important; color: var(--zone-c-dark) !important; }
+
+/* ==========================================
+   6. نصائح الاستخدام والأرشيف
+   ========================================== */
+.tips-container {
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 20px;
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 15px;
+    margin: 20px 0;
+}
+
+.tips-container::-webkit-scrollbar { width: 8px; }
+.tips-container::-webkit-scrollbar-thumb { background: #0284c7; border-radius: 10px; }
+.tips-container::-webkit-scrollbar-track { background: #e0f2fe; }
+
+.usage-tips {
+    background: #ccfbf1;
+    border-right: 5px solid #0d9488;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    color: var(--text-main);
+}
+
+.usage-tips h3 {
+    margin-top: 0;
+    font-size: 1.15rem;
+    margin-bottom: 12px;
+}
+
+.tip-row {
+    margin-bottom: 8px;
+    font-size: 0.98rem;
+    font-weight: 600;
+}
+
+.tip-row span {
+    margin-left: 8px;
+    font-size: 1.1rem;
+}
+
+.dot-green { color: var(--zone-a-dark); }
+.dot-blue { color: var(--zone-b-dark); }
+.dot-red { color: var(--zone-c-dark); }
+
+.archive-section { text-align: center; margin-top: 30px; }
+.archive-section h3 { margin-bottom: 20px; font-size: 1.15rem; color: var(--text-main); }
+.archive-buttons { display: flex; justify-content: center; gap: 15px; }
+
+.btn-archive {
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-elmy {
+    background-color: #bae6fd !important;
+    color: #0369a1 !important;
+    border: 1px solid #7dd3fc !important;
+}
+.btn-elmy:hover { background-color: #7dd3fc !important; }
+
+.btn-adaby {
+    background-color: #fecdd3 !important;
+    color: #9f1239 !important;
+    border: 1px solid #fda4af !important;
+}
+.btn-adaby:hover { background-color: #fda4af !important; }
+
+.btn-official {
+    display: inline-block;
+    background: linear-gradient(135deg, #0284c7, #0f766e);
+    color: white !important;
+    padding: 15px 32px;
+    border: none;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 15px rgba(2, 132, 199, 0.3);
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+.btn-official:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(2, 132, 199, 0.4);
+}
+
+/* ==========================================
+   7. الطباعة
+   ========================================== */
+@media print {
+    body * { visibility: hidden; }
+    #my-final-table, #my-final-table * { visibility: visible; }
+    #my-final-table { position: absolute; left: 0; top: 0; width: 100%; }
+    .no-print, button, .pdf-btn { display: none !important; }
+    table { border: 1px solid #000; }
+    th, td { border: 1px solid #000; color: #000 !important; background: #fff !important; }
+}
+
+* {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+}
+.no-print { display: block; }

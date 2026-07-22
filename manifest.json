@@ -1,0 +1,24 @@
+{
+  "name": "بوابة الصعيدي | تنسيق 2026",
+  "short_name": "تنسيق الصعيدي",
+  "description": "دليلك الشامل لترتيب الرغبات بذكاء - خدمة مجانية من بوابة الصعيدي",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f8fafc",
+  "theme_color": "#0d9488",
+  "icons": [
+    {
+      "src": "icon-192.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ]
+}
